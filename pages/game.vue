@@ -43,6 +43,8 @@ async function checkAnswer(answer: string){
   <Header title="Game"></Header>
   <div class="flex flex-col gap-2">
     <NuxtImg
+      width="550"
+      quality="50"
       :key="animal.photo"
       :src="`/animals/${animal.photo}`"
     />
