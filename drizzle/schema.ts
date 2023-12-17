@@ -1,68 +1,66 @@
 import {
 	pgTable,
 	unique,
-	pgEnum,
 	integer,
 	varchar,
 	timestamp,
-	foreignKey,
 	text,
-	bigint,
-	uuid,
 	boolean,
 	serial
 } from "drizzle-orm/pg-core"
-  import { sql } from "drizzle-orm"
-
-export const keyStatus = pgEnum("key_status", ['default', 'valid', 'invalid', 'expired'])
-export const keyType = pgEnum("key_type", ['aead-ietf', 'aead-det', 'hmacsha512', 'hmacsha256', 'auth', 'shorthash', 'generichash', 'kdf', 'secretbox', 'secretstream', 'stream_xchacha20'])
-export const factorType = pgEnum("factor_type", ['totp', 'webauthn'])
-export const factorStatus = pgEnum("factor_status", ['unverified', 'verified'])
-export const aalLevel = pgEnum("aal_level", ['aal1', 'aal2', 'aal3'])
-export const codeChallengeMethod = pgEnum("code_challenge_method", ['s256', 'plain'])
-
+import {relations} from "drizzle-orm";
 
 export const group = pgTable("group", {
-	id: serial("id").primaryKey().notNull(),
-	name: varchar("name").notNull(),
-	createdAt: timestamp("createdAt", { withTimezone: true, mode: 'string' }).defaultNow().notNull(),
-},
-(table) => {
-	return {
-		groupNameKey: unique("group_name_key").on(table.name),
-	}
+	id: serial("id").primaryKey(),
+	name: varchar("name", {length: 255}).notNull(),
+	createdAt: timestamp("createdAt", {mode: 'string'}).defaultNow().notNull(),
 });
 
+export const groupRelations = relations(group, ({many}) => ({
+	animals: many(animal)
+}))
+
 export const animal = pgTable("animal", {
-	id: serial("id").primaryKey().notNull(),
-	name: varchar("name").notNull(),
+	id: serial("id").primaryKey(),
+	name: varchar("name", {length: 255}).notNull(),
 	photo: text("photo"),
-	// You can use { mode: "bigint" } if numbers are exceeding js number limitations
-	groupId: bigint("groupId", { mode: "number" }).references(() => group.id, { onDelete: "set null" } ),
-},
-(table) => {
-	return {
-		animalNameKey: unique("animal_name_key").on(table.name),
-	}
+	groupId: integer("groupId").references(() => group.id),
 });
+
+export const animalRelations = relations(animal, ({one, many}) => ({
+	group: one(group, {
+		fields: [animal.groupId],
+		references: [group.id]
+	}),
+	history: many(history)
+}))
 
 export const usersPublic = pgTable("users_public", {
 	id: serial("id").primaryKey(),
 	nickname: varchar("nickname").notNull(),
 	points: integer("points").notNull(),
-	userId: uuid("userId"),
-},
-(table) => {
-	return {
-		usersPublicUserIdKey: unique("users_public_userId_key").on(table.userId),
-	}
+	userId: varchar("userId", {length: 255}).notNull(),
 });
+
+export const usersPublicRelations = relations(usersPublic, ({many}) => ({
+	history: many(history)
+}))
 
 export const history = pgTable("history", {
 	id: serial("id").primaryKey().notNull(),
-	userId: uuid("userId").notNull(),
-	// You can use { mode: "bigint" } if numbers are exceeding js number limitations
-	animalId: bigint("animalId", { mode: "number" }).notNull().references(() => animal.id, { onDelete: "cascade" } ),
+	userId: varchar("userId", {length: 255}).notNull(),
+	animalId: integer("animalId").notNull().references(() => animal.id, { onDelete: "cascade" } ),
 	correct: boolean("correct").notNull(),
-	createdAt: timestamp("createdAt", { withTimezone: true, mode: 'string' }).defaultNow().notNull(),
+	createdAt: timestamp("createdAt", { mode: 'string' }).defaultNow().notNull(),
 });
+
+export const historyRelations = relations(history, ({one}) => ({
+	user: one(usersPublic, {
+		fields: [history.userId],
+		references: [usersPublic.userId]
+	}),
+	animal: one(animal, {
+		fields: [history.animalId],
+		references: [animal.id]
+	})
+}))

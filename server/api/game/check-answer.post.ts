@@ -1,23 +1,26 @@
 import {z} from "zod";
 import {db} from '~/drizzle/db';
 import {animal, history, usersPublic} from "~/drizzle/schema";
-import {eq} from "drizzle-orm";
-import {serverSupabaseUser} from "#supabase/server";
+import {eq, sql} from "drizzle-orm";
+import {getUserFromEventToken} from "~/utils/server";
 
 const CheckAnswerDto = z.object({
   id: z.number(),
   answer: z.string(),
 })
 
+const preparedFindAnimal = db.select().from(animal).where(eq(animal.id, sql.placeholder('id'))).limit(1).prepare('get_animal_by_id')
+const preparedGetCurrentUserState = db
+  .select({points: usersPublic.points})
+  .from(usersPublic)
+  .where(eq(usersPublic.userId, sql.placeholder('id'))).limit(1).prepare('get_current_user_state')
+
 export default defineEventHandler(async(event) => {
   const body = await readBody(event);
   const {id, answer} = CheckAnswerDto.parse(body);
 
-  // Find animal
-  const [foundAnimals, user] = await Promise.all([
-    await db.select().from(animal).where(eq(animal.id, id)).limit(1),
-    await serverSupabaseUser(event)
-  ])
+  const user = await getUserFromEventToken(event);
+  const foundAnimals = await preparedFindAnimal.execute({id});
   if(!foundAnimals.length){
     return;
   }
@@ -38,10 +41,7 @@ export default defineEventHandler(async(event) => {
         animalId: foundAnimal.id,
         correct,
       }),
-    db
-      .select({points: usersPublic.points})
-      .from(usersPublic)
-      .where(eq(usersPublic.userId, user.id)).limit(1)
+    preparedGetCurrentUserState.execute({id: user.id})
   ]);
 
   let score = currentState.length ? currentState[0].points : 100;
@@ -67,6 +67,6 @@ export default defineEventHandler(async(event) => {
 
   return {
     correct,
-    score
+    score,
   };
 })

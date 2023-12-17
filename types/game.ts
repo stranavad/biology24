@@ -1,5 +1,15 @@
 export interface AnimalItem {
   id: number;
-  photo_url: string | null;
+  photo: string | null;
   answers: string[]
+}
+
+export interface LeaderboardItem {
+  userId: string;
+  total: number;
+  correct: number;
+  wrong: number;
+  percentage: number;
+  nickname: string;
+  points: number;
 }

@@ -1,10 +1,10 @@
 import { defineConfig } from 'drizzle-kit'
 
 export default defineConfig({
-    schema: "./schema.ts",
+    schema: "./drizzle/schema.ts",
     driver: 'pg',
     dbCredentials: {
-        connectionString: "postgresql://postgres:mcOKbqKvDvaj0F1J@db.dnkztosfwngvhwoallol.supabase.co:5432/postgres",
+        connectionString: process.env.NUXT_DB_URL,
     },
     verbose: true,
     strict: true,

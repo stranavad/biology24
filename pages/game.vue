@@ -40,18 +40,22 @@ async function checkAnswer(answer: string){
 
 <template>
 <div v-if="animal">
-  <pre>{{userInfo}}</pre>
+  <Header title="Game"></Header>
   <div class="flex flex-col gap-2">
+    <NuxtImg
+      :key="animal.photo"
+      :src="`/animals/${animal.photo}`"
+    />
       <div
         v-for="(answer, index) in animal.answers"
         :key="`${animal.id}-${answer}-${index}`"
-        class="flex bg-slate-800 rounded-md px-3 py-1 cursor-pointer hover:bg-slate-700 transition-colors duration-100"
+        class="flex bg-slate-800 rounded-md px-3 py-2 cursor-pointer hover:bg-slate-700 transition-colors duration-100"
         @click="checkAnswer(answer)"
       >
         {{answer}}
         <div class="ml-auto">
           <UIcon v-if="incorrectAnswers.includes(answer)" name="i-heroicons-x-mark-20-solid" class="text-red-500"/>
-          <UIcon name="i-heroicons-check-solid text-green-500"/>
+<!--          <UIcon name="i-heroicons-check-solid text-green-500"/>-->
         </div>
       </div>
   </div>
