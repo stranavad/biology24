@@ -1,7 +1,29 @@
-import { pgTable, unique, integer, varchar, timestamp, serial, text, bigint, uuid, boolean } from "drizzle-orm/pg-core"
+import {
+	pgTable,
+	unique,
+	pgEnum,
+	integer,
+	varchar,
+	timestamp,
+	foreignKey,
+	text,
+	bigint,
+	uuid,
+	boolean,
+	serial
+} from "drizzle-orm/pg-core"
+  import { sql } from "drizzle-orm"
+
+export const keyStatus = pgEnum("key_status", ['default', 'valid', 'invalid', 'expired'])
+export const keyType = pgEnum("key_type", ['aead-ietf', 'aead-det', 'hmacsha512', 'hmacsha256', 'auth', 'shorthash', 'generichash', 'kdf', 'secretbox', 'secretstream', 'stream_xchacha20'])
+export const factorType = pgEnum("factor_type", ['totp', 'webauthn'])
+export const factorStatus = pgEnum("factor_status", ['unverified', 'verified'])
+export const aalLevel = pgEnum("aal_level", ['aal1', 'aal2', 'aal3'])
+export const codeChallengeMethod = pgEnum("code_challenge_method", ['s256', 'plain'])
+
 
 export const group = pgTable("group", {
-	id: serial("id").primaryKey(),
+	id: serial("id").primaryKey().notNull(),
 	name: varchar("name").notNull(),
 	createdAt: timestamp("createdAt", { withTimezone: true, mode: 'string' }).defaultNow().notNull(),
 },
@@ -12,7 +34,7 @@ export const group = pgTable("group", {
 });
 
 export const animal = pgTable("animal", {
-	id: serial("id").primaryKey(),
+	id: serial("id").primaryKey().notNull(),
 	name: varchar("name").notNull(),
 	photo: text("photo"),
 	// You can use { mode: "bigint" } if numbers are exceeding js number limitations
@@ -37,9 +59,10 @@ export const usersPublic = pgTable("users_public", {
 });
 
 export const history = pgTable("history", {
-	id: serial("id").primaryKey(),
+	id: serial("id").primaryKey().notNull(),
 	userId: uuid("userId").notNull(),
 	// You can use { mode: "bigint" } if numbers are exceeding js number limitations
 	animalId: bigint("animalId", { mode: "number" }).notNull().references(() => animal.id, { onDelete: "cascade" } ),
 	correct: boolean("correct").notNull(),
+	createdAt: timestamp("createdAt", { withTimezone: true, mode: 'string' }).defaultNow().notNull(),
 });
