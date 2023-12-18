@@ -47,12 +47,5 @@ async function logout(){
     >
       Vyresit problemy
     </UButton>
-    <div v-if="user" class="mt-10">
-      <pre class="dark:text-slate-200 text-slate-800">{{user}}</pre>
-    </div>
   </div>
 </template>
-
-<style scoped>
-
-</style>
