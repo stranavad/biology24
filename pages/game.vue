@@ -59,13 +59,13 @@ async function checkAnswer(answer: string){
       <div
         v-for="(answer, index) in animal.answers"
         :key="`${animal.id}-${answer}-${index}`"
-        class="flex bg-slate-800 rounded-md px-3 py-2 cursor-pointer hover:bg-slate-700 transition-colors duration-100 text-slate-50"
+        class="flex rounded-md px-3 py-2 cursor-pointer transition-colors duration-100 text-slate-50"
         :class="[correctAnswer === answer ? 'bg-green-700' : 'bg-slate-800 hover:bg-slate-700']"
         @click="checkAnswer(answer)"
       >
         {{answer}}
         <div class="ml-auto">
-          <UIcon v-if="incorrectAnswers.includes(answer)" name="i-heroicons-x-mark-20-solid w-7 h-7" class="text-red-500"/>
+          <UIcon v-if="incorrectAnswers.includes(answer)" name="i-heroicons-x-mark-20-solid w-6 h-6" class="text-red-500"/>
         </div>
       </div>
   </div>
