@@ -5,5 +5,10 @@ export default defineNuxtConfig({
     supabaseJwtSecret: '',
     dbUrl: '',
   },
-  devtools: { enabled: false }
+  colorMode: {
+    preference: 'dark'
+  },
+  devtools: {
+    enabled: false
+  }
 })

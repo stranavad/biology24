@@ -8,6 +8,10 @@ useHead({
   title: 'Prochazka zviratky',
   link: [{rel: 'icon', type: 'image/x-icon', href: 'favicon.svg'}]
 })
+
+onMounted(() => {
+  localStorage.removeItem('nuxt-color-mode');
+})
 </script>
 <style>
 body {
