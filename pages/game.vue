@@ -44,6 +44,12 @@ async function checkAnswer(answer: string){
   }
 }
 
+const classes = {
+  neutral: 'bg-slate-800 hover:bg-slate-700',
+  correct: 'bg-green-700',
+  wrong: 'bg-red-700'
+}
+
 </script>
 
 <template>
@@ -59,14 +65,11 @@ async function checkAnswer(answer: string){
       <div
         v-for="(answer, index) in animal.answers"
         :key="`${animal.id}-${answer}-${index}`"
-        class="flex rounded-md px-3 py-2 cursor-pointer transition-colors duration-100 text-slate-50"
-        :class="[correctAnswer === answer ? 'bg-green-700' : 'bg-slate-800 hover:bg-slate-700']"
+        class="flex justify-start rounded-md px-3 py-2 cursor-pointer transition-colors duration-100 text-slate-50"
+        :class="[correctAnswer === answer ? classes.correct : incorrectAnswers.includes(answer) ? classes.wrong : classes.neutral]"
         @click="checkAnswer(answer)"
       >
         {{answer}}
-        <div class="ml-auto">
-          <UIcon v-if="incorrectAnswers.includes(answer)" name="i-heroicons-x-mark-20-solid w-6 h-6" class="text-red-500"/>
-        </div>
       </div>
   </div>
 </div>
