@@ -5,6 +5,7 @@ const user = useSupabaseUser();
 const {data: animal} = await useFetch('/api/game/get-random-animal');
 const {data: userInfo} = await useFetch('/api/user/info', {query: {userId: user.value!.id}});
 const incorrectAnswers = ref<string[]>([]);
+const correctAnswer = ref<string>('');
 
 async function checkAnswer(answer: string){
   if(!animal.value){
@@ -29,8 +30,15 @@ async function checkAnswer(answer: string){
 
 
   if(res.correct){
-    incorrectAnswers.value = [];
-    animal.value = await $fetch('/api/game/get-random-animal')
+    correctAnswer.value = answer;
+    const newAnimal = await $fetch('/api/game/get-random-animal')
+
+    setTimeout(() => {
+      incorrectAnswers.value = [];
+      correctAnswer.value = '';
+      animal.value = newAnimal;
+    }, 300)
+
   } else {
     incorrectAnswers.value.push(answer);
   }
@@ -51,13 +59,13 @@ async function checkAnswer(answer: string){
       <div
         v-for="(answer, index) in animal.answers"
         :key="`${animal.id}-${answer}-${index}`"
-        class="flex bg-slate-800 rounded-md px-3 py-2 cursor-pointer hover:bg-slate-700 transition-colors duration-100"
+        class="flex bg-slate-800 rounded-md px-3 py-2 cursor-pointer hover:bg-slate-700 transition-colors duration-100 text-slate-50"
+        :class="[correctAnswer === answer ? 'bg-green-700' : 'bg-slate-800 hover:bg-slate-700']"
         @click="checkAnswer(answer)"
       >
         {{answer}}
         <div class="ml-auto">
-          <UIcon v-if="incorrectAnswers.includes(answer)" name="i-heroicons-x-mark-20-solid" class="text-red-500"/>
-<!--          <UIcon name="i-heroicons-check-solid text-green-500"/>-->
+          <UIcon v-if="incorrectAnswers.includes(answer)" name="i-heroicons-x-mark-20-solid w-7 h-7" class="text-red-500"/>
         </div>
       </div>
   </div>
