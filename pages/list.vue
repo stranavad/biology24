@@ -26,6 +26,8 @@ const {data: groups}: {data: Ref<ListGroup[] | null>} = await useFetch<ListGroup
             class="mb-3"
             width="300px"
             quality="50"
+            loading="lazy"
+            format="webp"
             :alt="animal.name"
             :src="`/animals/${animal.photo}`"
           />

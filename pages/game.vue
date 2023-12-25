@@ -59,6 +59,7 @@ const classes = {
     <NuxtImg
       width="550"
       quality="50"
+      format="webp"
       :key="animal.photo"
       :src="`/animals/${animal.photo}`"
     />
