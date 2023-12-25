@@ -8,12 +8,34 @@ const items = computed(() => {
   if(route.path === '/game'){
     return [
       {
+        to: '/list',
+        text: 'List',
+      },
+      {
         to: '/stats',
         text: 'Leaderboard'
       }
     ]
   }
+
+  if(route.path === '/list'){
+    return [
+      {
+        to: '/game',
+        text: 'Game',
+      },
+      {
+        to: '/stats',
+        text: 'Leaderboard'
+      }
+    ]
+  }
+
   return [
+    {
+      to: '/list',
+      text: 'List',
+    },
     {
       to: '/game',
       text: 'Game'
@@ -32,7 +54,9 @@ const items = computed(() => {
       <UIcon name="i-heroicons-cog-8-tooth"/>
     </NuxtLink>
   </div>
-  <NuxtLink v-for="item in items" :key="item.to" :to="item.to" class="uppercase text-sm font-semibold text-slate-400 hover:text-slate-700 transition-colors duration-200">{{item.text}}</NuxtLink>
+  <div class="flex gap-4">
+    <NuxtLink v-for="item in items" :key="item.to" :to="item.to" class="uppercase text-sm font-semibold text-slate-400 hover:text-slate-700 transition-colors duration-200">{{item.text}}</NuxtLink>
+  </div>
 </div>
 </template>
 

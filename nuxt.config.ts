@@ -8,6 +8,11 @@ export default defineNuxtConfig({
   colorMode: {
     preference: 'dark'
   },
+  // supabase: {
+  //   redirectOptions: {
+  //     exclude: ['/list']
+  //     },
+  // },
   devtools: {
     enabled: false
   }
