@@ -18,6 +18,11 @@ const {data}: {data: Ref<LeaderboardItem[]>} = await useFetch<LeaderboardItem[]>
     {{ user.nickname }}
     </span>
     <div class="flex items-center gap-4">
+      <span class="text-xs text-gray-400">
+        <span class="text-green-500">{{user.correct}}</span>
+        /
+        <span class="text-red-500">{{user.wrong}}</span>
+      </span>
       <span class="text-sm">
           {{ user.points }}
       </span>
