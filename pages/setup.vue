@@ -11,7 +11,7 @@ const {data: currentInfo} = await useFetch<UserInfo | undefined>('/api/user/info
   }
 })
 
-const nickname = ref(currentInfo.value?.nickname || "");
+const nickname = ref<string>(currentInfo.value?.nickname || "");
 
 
 async function setupUser(){
@@ -49,15 +49,12 @@ async function setupUser(){
       v-if="currentInfo"
       to="/game"
     >
-      <UButton
-        class="font-semibold"
-      >
+      <UButton>
         Pokracovat do hry
       </UButton>
     </NuxtLink>
     <UButton
-      class="font-semibold"
-      :disabled="!nickname"
+      :disabled="!nickname.trim()"
       @click="setupUser"
     >
       {{currentInfo ? 'Upravit prezdivku' : 'Zaregistrovat se'}}

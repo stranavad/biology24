@@ -1,6 +1,6 @@
 import {db} from '~/drizzle/db';
 import {animal} from "~/drizzle/schema";
-import {and, eq, ne, sql} from "drizzle-orm";
+import {ne, sql} from "drizzle-orm";
 import {getRandomElements, shuffle} from "~/utils";
 import {AnimalItem} from "~/types/game";
 
@@ -12,7 +12,7 @@ export default defineEventHandler(async(event): Promise<AnimalItem | null> => {
   const animals = await preparedQuery.execute({id: query.lastId ? Number(query.lastId) : 0});
   const randomAnimal = getRandomElements(animals, 1)[0];
 
-  const answerResults = getRandomElements(animals.reduce((results, item) => {
+  const answerResults = getRandomElements(animals.reduce((results: string[], item) => {
     if (item.groupId === randomAnimal.groupId && item.id !== randomAnimal.id) {
       results.push(item.name);
     }

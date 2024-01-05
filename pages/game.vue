@@ -1,9 +1,5 @@
 <script setup lang="ts">
-import {useSupabaseUser} from "#imports";
-
-const user = useSupabaseUser();
 const {data: animal} = await useFetch('/api/game/get-random-animal');
-const {data: userInfo} = await useFetch('/api/user/info', {query: {userId: user.value!.id}});
 const incorrectAnswers = ref<string[]>([]);
 const correctAnswer = ref<string>('');
 
@@ -24,10 +20,6 @@ async function checkAnswer(answer: string){
     }
   });
 
-  if(userInfo.value){
-    userInfo.value.points = res.score;
-  }
-
 
   if(res.correct){
     correctAnswer.value = answer;
@@ -37,7 +29,7 @@ async function checkAnswer(answer: string){
       incorrectAnswers.value = [];
       correctAnswer.value = '';
       animal.value = newAnimal;
-    }, 300)
+    }, 200)
 
   } else {
     incorrectAnswers.value.push(answer);
@@ -75,7 +67,3 @@ const classes = {
   </div>
 </div>
 </template>
-
-<style scoped>
-
-</style>
