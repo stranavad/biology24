@@ -2,6 +2,7 @@
 const {data: animal} = await useFetch('/api/game/get-random-animal');
 const incorrectAnswers = ref<string[]>([]);
 const correctAnswer = ref<string>('');
+const answerable = ref(true);
 
 async function checkAnswer(answer: string){
   if(!animal.value){
@@ -12,6 +13,11 @@ async function checkAnswer(answer: string){
     return;
   }
 
+  if(!answerable.value){
+    return;
+  }
+
+  answerable.value = false;
   const res = await $fetch('/api/game/check-answer', {
     method: 'post',
     body: {
@@ -26,12 +32,14 @@ async function checkAnswer(answer: string){
     const newAnimal = await $fetch('/api/game/get-random-animal')
 
     setTimeout(() => {
+      answerable.value = true;
       incorrectAnswers.value = [];
       correctAnswer.value = '';
       animal.value = newAnimal;
     }, 200)
 
   } else {
+    answerable.value = true;
     incorrectAnswers.value.push(answer);
   }
 }
