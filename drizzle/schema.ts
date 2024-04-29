@@ -1,6 +1,5 @@
 import {
 	pgTable,
-	unique,
 	integer,
 	varchar,
 	timestamp,
