@@ -1,4 +1,4 @@
-import {animal, group} from "~/drizzle/schema";
+import {animal, group, history} from "~/drizzle/schema";
 import {db} from "~/drizzle/db";
 //
 
@@ -7,15 +7,15 @@ const animals: {name: string, animals: {name: string, image: string}[]}[] = [
     name: "NIŽŠÍ STRUNATCI A KRUHOÚSTÍ",
     "animals": [
       {
-        "image": "branchiostoma_lanceolatum.jpg",
+        "image": "kopinatecplzovity.jpg",
         "name": "Kopinatec Plžovitý"
       },
       {
-        "image": "f9eea7f71904f0b658cbf025c9973e86.jpg",
+        "image": "mihule.jpg",
         "name": "Mihule"
       },
       {
-        "image": "sliznatka-detail-1024x559.jpg",
+        "image": "sliznatka-detail-1024x559.png",
         "name": "Sliznatka Cizopasná"
       }
     ]
@@ -24,11 +24,11 @@ const animals: {name: string, animals: {name: string, image: string}[]}[] = [
     "name": "PARYBY",
     "animals": [
       {
-        "image": "49ca3bc4d2df0c45b22e3b813317dbed.jpg",
+        "image": "chimera.jpg",
         "name": "Chiméra"
       },
       {
-        "image": "430443.jpg",
+        "image": "ruznozobec.jpg",
         "name": "Různozobec"
       },
       {
@@ -36,15 +36,15 @@ const animals: {name: string, animals: {name: string, image: string}[]}[] = [
         "name": "Wobegong"
       },
       {
-        "image": "270px-Verpleegsterhaai.jpg",
+        "image": "zralokpico.jpg",
         "name": "Žralok Vouskatý"
       },
       {
-        "image": "Similan_Dive_Center_-_great_whale_shark.jpg",
+        "image": "sharkbig.jpg",
         "name": "Žralok Obrovský (velrybí)"
       },
       {
-        "image": "250px-Scyliorhinus_canicula.jpg",
+        "image": "macka.jpg",
         "name": "Máčka"
       },
       {
@@ -64,11 +64,11 @@ const animals: {name: string, animals: {name: string, image: string}[]}[] = [
         "name": "Žralok Skvrnitý"
       },
       {
-        "image": "BPXq4.jpg",
+        "image": "BPXq4.jpeg",
         "name": "Liškoun Obecný"
       },
       {
-        "image": "8a3ed1fc-7d70-4374-a3e9-a9f2d4f18c1f.jpg",
+        "image": "8a3ed1fc-7d70-4374-a3e9-a9f2d4f18c1f.jpeg",
         "name": "Žralok Veliký"
       },
       {
@@ -121,7 +121,7 @@ const animals: {name: string, animals: {name: string, image: string}[]}[] = [
     "name": "RYBY",
     "animals": [
       {
-        "image": "1901891.jpg",
+        "image": "1901891.webp",
         "name": "Latimerie"
       },
       {
@@ -133,15 +133,15 @@ const animals: {name: string, animals: {name: string, image: string}[]}[] = [
         "name": "Bichir"
       },
       {
-        "image": "Alligator_Gar_10.jpg",
+        "image": "Alligator_Gar_10.jpeg",
         "name": "Kostlín"
       },
       {
-        "image": "4471.jpg",
+        "image": "4471.webp",
         "name": "Kaproun"
       },
       {
-        "image": "Sturgeon",
+        "image": "Sturgeon.jpg",
         "name": "Jeseter"
       },
       {
@@ -157,7 +157,7 @@ const animals: {name: string, animals: {name: string, image: string}[]}[] = [
         "name": "Arapaima Velká"
       },
       {
-        "image": "Osteoglossum_bicirrhosum.jpg",
+        "image": "Osteoglossum_bicirrhosum.JPG",
         "name": "Arowana"
       },
       {
@@ -241,7 +241,7 @@ const animals: {name: string, animals: {name: string, image: string}[]}[] = [
         "name": "Lipan Podhorní"
       },
       {
-        "image": "Salvelinus_fontinalis_Prague_Vltava_1.jjpg",
+        "image": "Salvelinus_fontinalis_Prague_Vltava_1.jpg",
         "name": "Siven Americký"
       },
       {
@@ -253,7 +253,7 @@ const animals: {name: string, animals: {name: string, image: string}[]}[] = [
         "name": "Štika Obecná"
       },
       {
-        "image": "download.jpg",
+        "image": "download.jpeg",
         "name": "Treska Obecná"
       },
       {
@@ -265,7 +265,7 @@ const animals: {name: string, animals: {name: string, image: string}[]}[] = [
         "name": "Ďas Mořský"
       },
       {
-        "image": "images.jpg",
+        "image": "images.jpeg",
         "name": "Letoun Obecný"
       },
       {
@@ -281,7 +281,7 @@ const animals: {name: string, animals: {name: string, image: string}[]}[] = [
         "name": "Koníček Mořský"
       },
       {
-        "image": "Lionfish_in_coral_reef_2004-11-17.jpg",
+        "image": "Lionfish_in_coral_reef_2004-11-17.jpeg",
         "name": "Perutýn Ohnivý"
       },
       {
@@ -289,11 +289,11 @@ const animals: {name: string, animals: {name: string, image: string}[]}[] = [
         "name": "Vranka Obecná"
       },
       {
-        "image": "GiantGrouper018.jpg",
+        "image": "GiantGrouper018.jpeg",
         "name": "Kanic Obrovský"
       },
       {
-        "image": "download (1).jpg",
+        "image": "download (1).jpeg",
         "name": "Zlak Nachový"
       },
       {
@@ -341,7 +341,7 @@ const animals: {name: string, animals: {name: string, image: string}[]}[] = [
         "name": "Tuňák Obecný"
       },
       {
-        "image": "ywHJC0.jpg",
+        "image": "ywHJC0.jpeg",
         "name": "Mečoun Obecný"
       },
       {
@@ -382,11 +382,11 @@ const animals: {name: string, animals: {name: string, image: string}[]}[] = [
         "name": "Macarát Jeskynní"
       },
       {
-        "image": "Mlok.jpg",
+        "image": "Mlok.jpeg",
         "name": "Mlok Skvrnitý"
       },
       {
-        "image": "Alpensalamander_(2)_bei_Schöllang_im_Allgäu.jpg",
+        "image": "mlokthenigga.jpg",
         "name": "Mlok Černý"
       },
       {
@@ -414,7 +414,7 @@ const animals: {name: string, animals: {name: string, image: string}[]}[] = [
         "name": "Červor Cejlonský"
       },
       {
-        "image": "Siphonops_annulatus_IRDias_2014.jpg",
+        "image": "Siphonops_annulatus_IRDias_2014.png",
         "name": "Cecílie Kroužkovaná"
       },
       {
@@ -442,7 +442,7 @@ const animals: {name: string, animals: {name: string, image: string}[]}[] = [
         "name": "Blatnice Skvrnitá"
       },
       {
-        "image": "Myobatrachus_gouldii_(lateral_view).jpg",
+        "image": "Myobatrachus_gouldii_(lateral_view).png",
         "name": "Paropucha Křížová"
       },
       {
@@ -450,7 +450,7 @@ const animals: {name: string, animals: {name: string, image: string}[]}[] = [
         "name": "Rohatka Ozdobná"
       },
       {
-        "image": "Ropucha_obecná_(Bufo_bufo).jpg",
+        "image": "ropucha_obecna.jpg",
         "name": "Ropucha Obecná"
       },
       {
@@ -470,7 +470,7 @@ const animals: {name: string, animals: {name: string, image: string}[]}[] = [
         "name": "Listovnice Červenooká"
       },
       {
-        "image": "270px-Dendrobates-azureus",
+        "image": "270px-Dendrobates-azureus.jpg",
         "name": "Pralesnička Azurová"
       },
       {
@@ -531,7 +531,7 @@ const animals: {name: string, animals: {name: string, image: string}[]}[] = [
         "name": "Stegosaurus"
       },
       {
-        "image": "202004_Pachycephalosaurus_wyomingensis.jpg",
+        "image": "202004_Pachycephalosaurus_wyomingensis.png",
         "name": "Pachycephalosaurus"
       },
       {
@@ -579,7 +579,7 @@ const animals: {name: string, animals: {name: string, image: string}[]}[] = [
         "name": "Želva Bahenní"
       },
       {
-        "image": "Chrysemis_pictas_pictas_2008-11-02_293.jpg",
+        "image": "Chrysemis_pictas_pictas_2008-11-02_293.jpeg",
         "name": "Želva Ozdobná"
       },
       {
@@ -591,11 +591,11 @@ const animals: {name: string, animals: {name: string, image: string}[]}[] = [
         "name": "Želva Obrovská/sloní"
       },
       {
-        "image": "Nabeulensis_sarda1.jpg",
+        "image": "Nabeulensis_sarda1.jpeg",
         "name": "Želva Žlutohnědá"
       },
       {
-        "image": "df290bc36916a88c398cb684f1748640-t3.jpg",
+        "image": "df290bc36916a88c398cb684f1748640-t3.jpeg",
         "name": "Aligátor"
       },
       {
@@ -603,7 +603,7 @@ const animals: {name: string, animals: {name: string, image: string}[]}[] = [
         "name": "Krokodýl"
       },
       {
-        "image": "1200px-Indian_Gharial_Crocodile_Digon3.jpg",
+        "image": "1200px-Indian_Gharial_Crocodile_Digon3.jpeg",
         "name": "Gaviál Indický"
       },
       {
@@ -615,7 +615,7 @@ const animals: {name: string, animals: {name: string, image: string}[]}[] = [
         "name": "Leguán Zelený"
       },
       {
-        "image": "Marineiguana03,jpg",
+        "image": "Marineiguana03.jpg",
         "name": "Leguán Mořský"
       },
       {
@@ -655,7 +655,7 @@ const animals: {name: string, animals: {name: string, image: string}[]}[] = [
         "name": "Slepýš Křehký"
       },
       {
-        "image": "jesterka_obecna-_archiv_zoo.jpg",
+        "image": "jesterka_obecna-_archiv_zoo.jpeg",
         "name": "Ještěrka Obecná"
       },
       {
@@ -671,7 +671,7 @@ const animals: {name: string, animals: {name: string, image: string}[]}[] = [
         "name": "Varan Komodský"
       },
       {
-        "image": "Hroznys-kralovsky-na-slunci.jpg",
+        "image": "Hroznys-kralovsky-na-slunci.jpeg",
         "name": "Hroznýš Královský"
       },
       {
@@ -683,7 +683,7 @@ const animals: {name: string, animals: {name: string, image: string}[]}[] = [
         "name": "Krajta Mřížkovaná"
       },
       {
-        "image": "download (2).jpg",
+        "image": "download (2).jpeg",
         "name": "Užovka Obojková"
       },
       {
@@ -691,7 +691,7 @@ const animals: {name: string, animals: {name: string, image: string}[]}[] = [
         "name": "Užovka Podplamatá"
       },
       {
-        "image": "Couleuvre_Esculape59.jpg",
+        "image": "Couleuvre_Esculape59.jpeg",
         "name": "Užovka Stromová"
       },
       {
@@ -715,7 +715,7 @@ const animals: {name: string, animals: {name: string, image: string}[]}[] = [
         "name": "Mamba Černá"
       },
       {
-        "image": "02027404.jpg",
+        "image": "02027404.jpeg",
         "name": "Korálovec"
       },
       {
@@ -723,7 +723,7 @@ const animals: {name: string, animals: {name: string, image: string}[]}[] = [
         "name": "Taipan"
       },
       {
-        "image": "270px-Hydrophis_belcheri_-_journal.pone.0027373.g005.jpg",
+        "image": "270px-Hydrophis_belcheri_-_journal.pone.0027373.g005.png",
         "name": "Vodnáři"
       },
       {
@@ -746,6 +746,25 @@ const animals: {name: string, animals: {name: string, image: string}[]}[] = [
 
 export default defineEventHandler(async() => {
   console.log('seeding');
+
+  await db.delete(history)
+  await db.delete(animal)
+  await db.delete(group)
+
+  for(const groupIter of animals){
+    const groupRes = await db.insert(group).values({name: groupIter.name}).returning();
+
+    const groupId = groupRes[0].id;
+    for(const animalIter of groupIter.animals){
+      await db.insert(animal).values({
+        name: animalIter.name,
+        groupId,
+        photo: animalIter.image
+      })
+    }
+    // }));
+  }
+  //
   // animals.map(async(groupIter) => {
   //   const groupRes = await db.insert(group).values({name: groupIter.name}).returning();
   //
