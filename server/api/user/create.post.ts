@@ -5,7 +5,7 @@ import {eq, sql} from "drizzle-orm";
 import {getUserFromEventToken} from "~/utils/server";
 
 const CreateUserSchema = z.object({
-    nickname: z.string()
+    nickname: z.string().max(50)
 })
 
 const preparedFindUser = db.select().from(usersPublic).where(eq(usersPublic.userId, sql.placeholder('id'))).prepare('find_user_for_create');
