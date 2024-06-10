@@ -33,6 +33,15 @@ async function logout(){
 
   }
 }
+
+const tabs = [
+  {
+    label: 'V1'
+  },
+  {
+    label: 'V2'
+  }
+];
 </script>
 
 <template>

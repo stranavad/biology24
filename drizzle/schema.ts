@@ -24,6 +24,7 @@ export const animal = pgTable("animal", {
 	name: varchar("name", {length: 255}).notNull(),
 	photo: text("photo"),
 	groupId: integer("groupId").references(() => group.id),
+	version: integer('version').default(1)
 });
 
 export const animalRelations = relations(animal, ({one, many}) => ({
